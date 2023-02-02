@@ -2,17 +2,51 @@
 <html>
    <head>
       <title>gmg's Info Web</title>
-      <link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="../global/g.css">
-      <link rel="icon" type="image/x-icon" href="https://dsstlevel.github.io/Web/Images/favicon.ico">
       <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0"> 
       <style>
-         body {background-color: #111;margin:0;background-image: url("Images/background1.png");background-repeat: no-repeat;background-size: cover;text-decoration:none;font-family: "Lato", sans-serif;}
+         body {text-align:center;text-decoration:none;color:snow;background-color: #111;margin:0;background-image: url("Images/background2.png");background-repeat: no-repeat;background-size: cover;font-family: "Lato", sans-serif;}
       </style>
    </head>
 <body>
 <div style="overflow:auto;">
+<table width="100%" border="1">
+   <tr>
+      <th>Websites</th>
+   </tr>
+   <tr>
+      <td>
+         <a style="text-decoration:none;color:darkturquoise" href="https://www.compresss.com/compress-ogg.html">.ogg Compressor</a><br>
+         <a style="text-decoration:none;color:darkturquoise" href="https://deluuxe.dev/streamlinks.html#uaz">Radio Links</a><br>
+         <a style="text-decoration:none;color:darkturquoise" href="https://gaming.stackexchange.com/questions/376522/how-to-add-names-and-scores-in-tellraw">Tellraw Scoreboard Objectives</a><br>
+         <a style="text-decoration:none;color:darkturquoise" href="https://unicode.org/emoji/charts/full-emoji-list.html">Emoji Unicode</a><br>
+         <a style="text-decoration:none;color:darkturquoise" href="https://obfuscator.io/">Javascript Encryptor</a><br>
+      </td>
+   </tr>
+</table>
+<div style="overflow:auto">
+   <p title="SqL1n">View current DSS password</p>
+   <pre>
+      function pwd() {
+         if (document.getElementById("pwd").value=="PASSWORD_VALUE") {
+            if (document.getElementById("loc").value=="admin") window.location="Admin/secret.html"
+            else if (document.getElementById("loc").value=="priv") window.location="Priv/p.html"
+         }
+         else alert("This password is incorrect. Try again.")}   
+   </pre>
+   <button onclick="myFunction()">Copy Code</button>
 </div>
-
-   <script src="../global/data.js"></script><script src="https://kit.fontawesome.com/b457945b5f.js" crossorigin="anonymous"></script>
-   </body>
+</div>
+<script src="../global/data.js"></script><script src="https://kit.fontawesome.com/b457945b5f.js" crossorigin="anonymous"></script>
+<script>
+const pwdText=['function pwd() {',
+               'if (document.getElementById("pwd").value=="SqL1n") {',
+                  'if (document.getElementById("loc").value=="admin") window.location="Admin/secret.html"',
+                  'else if (document.getElementById("loc").value=="priv") window.location="Priv/p.html"',
+               '}',
+               'else alert("This password is incorrect. Try again.")}'].join('\n')
+function myFunction() {
+  navigator.clipboard.writeText(pwdText)
+}
+</script>
+</body>
 </html>
