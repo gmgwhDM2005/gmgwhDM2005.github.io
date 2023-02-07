@@ -27,18 +27,15 @@
       </td>
    </tr>
 </table>
-<div style="overflow:auto">
-   <p title="SqL1n">View current DSS password</p>
-   <pre>
-      function pwd() {
-         if (document.getElementById("pwd").value=="PASSWORD_VALUE") {
-            if (document.getElementById("loc").value=="admin") window.location="Admin/secret.html"
-            else if (document.getElementById("loc").value=="priv") window.location="Priv/p.html"
-         }
-         else alert("This password is incorrect. Try again.")}   
-   </pre>
-   <button onclick="myFunction()">Copy Code</button>
-</div>
+<p title="SqL1n">View current DSS password</p>
+<p style="font-size:small">function pwd() {<br> 
+if (document.getElementById("pwd").value=="PASSWORD_VALUE") {<br> 
+if (document.getElementById("loc").value=="admin") window.location="Admin/secret.html"<br> 
+else if (document.getElementById("loc").value=="priv") window.location="Priv/p.html"<br> 
+}<br> 
+else alert("This password is incorrect. Try again.")}<br>   
+</p>
+<button onclick="myFunction()">Copy Code</button>
 </div>
 <script src="../global/data.js"></script><script src="https://kit.fontawesome.com/b457945b5f.js" crossorigin="anonymous"></script>
 <script>
