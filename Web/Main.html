@@ -3,6 +3,7 @@
    <head>
       <title>gmg's Info Web</title>
       <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+      <script src="https://dsstlevel.github.io/global/settings.js"></script>
       <link rel="icon" type="image/x-icon" href="https://gmgwhDM2005.github.io/Web/Images/favicon.png">
       <style>
          body {text-align:center;text-decoration:none;color:snow;background-color: #111;margin:0;background-image: url("Images/background2.png");background-repeat: no-repeat;background-size: cover;font-family: "Lato", sans-serif;}
@@ -18,17 +19,17 @@
    </tr>
    <tr>
       <td>
-         <button class="button" onclick="window.location='https\://www.compresss.com/compress-ogg.html'">.ogg Compressor</button>
-         <button class="button" onclick="window.location='https\://deluuxe.dev/streamlinks.html'">Radio Links</button>
-         <button class="button" onclick="window.location='https\://gaming.stackexchange.com/questions/376522/how-to-add-names-and-scores-in-tellraw'">Tellraw Scoreboard Objectives</button>
-         <button class="button" onclick="window.location='https\://unicode.org/emoji/charts/full-emoji-list.html'">Emoji Unicode</button>
-         <button class="button" onclick="window.location='https\://javascriptobfuscator.com/Javascript-Obfuscator.aspx'">Javascript Encryptor</button>
-         <button class="button" onclick="window.location='https\://tfgm.com/public-transport/bus/stops/1800NB07651/59'">59 Exp Times (To Col)</button>
-         <button class="button" onclick="window.location='https\://tfgm.com/public-transport/bus/stops/1800NB00771/59'">59 Exp Times (To HP)</button>
+         <button class="button" onclick="window.location='https:\/\/www.compresss.com/compress-ogg.html'">.ogg Compressor</button>
+         <button class="button" onclick="window.location='https:\/\/deluuxe.dev/streamlinks.html'">Radio Links</button>
+         <button class="button" onclick="window.location='https:\/\/gaming.stackexchange.com/questions/376522/how-to-add-names-and-scores-in-tellraw'">Tellraw Scoreboard Objectives</button>
+         <button class="button" onclick="window.location='https:\/\/unicode.org/emoji/charts/full-emoji-list.html'">Emoji Unicode</button>
+         <button class="button" onclick="window.location='https:\/\/javascriptobfuscator.com/Javascript-Obfuscator.aspx'">Javascript Encryptor</button>
+         <button class="button" onclick="window.location='https:\/\/tfgm.com/public-transport/bus/stops/1800NB07651/59'">59 Exp Times (To Col)</button>
+         <button class="button" onclick="window.location='https:\/\/tfgm.com/public-transport/bus/stops/1800NB00771/59'">59 Exp Times (To HP)</button>
       </td>
    </tr>
 </table>
-<p title="SqL1n">View current DSS password</p>
+<p id="pwd">View current DSS password</p>
 <p style="font-size:small">function pwd() {<br> 
 if (document.getElementById("pwd").value=="PASSWORD_VALUE") {<br> 
 if (document.getElementById("loc").value=="admin") window.location="Admin/secret.html"<br> 
@@ -49,6 +50,8 @@ const pwdText=['function pwd() {',
 function myFunction() {
   navigator.clipboard.writeText(pwdText)
 }
+document.getElementById("pwda").innerHTML=PrivAdmin_pwd
+document.getElementById('pwd').setAttribute("title", PrivAdmin_pwd);
 </script>
 </body>
 </html>
