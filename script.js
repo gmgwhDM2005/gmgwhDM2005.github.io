@@ -2,12 +2,9 @@
 // Configuration
 // ------------------------------------------------------------
 
-// CHANGE THIS TO YOUR OWN PASSWORD HASH (SHA-256).
-// To generate a hash, visit: https://passwordsgenerator.net/sha256-hash-generator/
-const ADMIN_PASSWORD_HASH = "9c3a9d3170f810cd8ad926756e2328e0193f7b36a4f2dc80bd048c6a558f845a"; // example: "admin123"
-
-// Path to fleet data file
-const FLEET_DATA_URL = "data/fleet.json";
+// CHANGE THIS TO YOUR OWN PASSWORD HASH (SHA-256)
+const USERNAME = 'admin';
+const PASSWORD_HASH = '8a86c4eecf12446ff273afc03e1b3a09a911d0b7981db1af58cb45c439161295'; // SHA-256 of your password
 
 let fleetData = [];
 
@@ -15,135 +12,209 @@ let fleetData = [];
 // Utility Functions
 // ------------------------------------------------------------
 
-async function sha256(str) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(str);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-    return Array.from(new Uint8Array(hashBuffer))
-        .map(b => b.toString(16).padStart(2, "0"))
-        .join("");
+async function sha256(text) {
+  const buffer = new TextEncoder().encode(text);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+  return Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
 }
 
-async function loadFleetData() {
-    try {
-        const response = await fetch(FLEET_DATA_URL + "?t=" + Date.now());
-        fleetData = await response.json();
-        renderFleetList();
-        renderAdminFleetList();
-    } catch (error) {
-        console.error("Error loading fleet data:", error);
-    }
-}
-
-function saveFleetData() {
-    const dataStr = JSON.stringify(fleetData, null, 2);
-    const blob = new Blob([dataStr], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "fleet.json";
-    a.click();
-    URL.revokeObjectURL(url);
-
-    alert("Download complete — replace the file in /data/fleet.json on GitHub to update.");
+async function loadFleet() {
+  try {
+    const res = await fetch('data/fleet.json');
+    fleetData = await res.json();
+  } catch (err) {
+    console.error('Failed to load fleet data:', err);
+    fleetData = [];
+  }
 }
 
 // ------------------------------------------------------------
-// Public Fleet Page Rendering
+// HTML Escaping
 // ------------------------------------------------------------
 
-function renderFleetList() {
-    const tableBody = document.getElementById("fleet-table-body");
-    if (!tableBody) return;
+function escapeHtml(str) {
+  return String(str || '').replace(/[&<>"']/g, c => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[c]));
+}
 
-    tableBody.innerHTML = "";
-    fleetData.forEach(vehicle => {
-        const row = document.createElement("tr");
+function escapeAttr(str) {
+  return String(str || '').replace(/"/g, '&quot;');
+}
 
-        row.innerHTML = `
-            <td>${vehicle.reg}</td>
-            <td>${vehicle.fleetNumber}</td>
-            <td><img src="${vehicle.liveryImage}" alt="Livery" class="livery-img"></td>
-            <td>${vehicle.vehicleType}</td>
-            <td>${vehicle.features}</td>
-            <td><a href="${vehicle.flickrURL}" target="_blank">View</a></td>
-        `;
+// ------------------------------------------------------------
+// Public Fleet Rendering
+// ------------------------------------------------------------
 
-        tableBody.appendChild(row);
+function renderFleetTable(container, data) {
+  container.innerHTML = '';
+
+  const table = document.createElement('table');
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Reg</th>
+        <th>Fleet #</th>
+        <th>Livery</th>
+        <th>Type</th>
+        <th>Features</th>
+        <th>Flickr</th>
+      </tr>
+    </thead>
+  `;
+
+  const tbody = document.createElement('tbody');
+  data.forEach(v => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${escapeHtml(v.reg)}</td>
+      <td>${escapeHtml(v.fleetNumber)}</td>
+      <td>
+        <div>${escapeHtml(v.livery)}</div>
+        ${v.liveryImage ? `<img class="livery" src="${escapeAttr(v.liveryImage)}" alt="livery image">` : ''}
+      </td>
+      <td>${escapeHtml(v.type)}</td>
+      <td>${escapeHtml((v.features || []).join(', '))}</td>
+      <td>${v.flickr ? `<a href="${escapeAttr(v.flickr)}" target="_blank">View</a>` : ''}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  table.appendChild(tbody);
+  container.appendChild(table);
+}
+
+// ------------------------------------------------------------
+// Admin Panel Rendering
+// ------------------------------------------------------------
+
+function renderAdminFleet(container, data) {
+  container.innerHTML = '';
+
+  data.forEach((v, i) => {
+    const row = document.createElement('div');
+    row.className = 'row';
+
+    row.innerHTML = `
+      <div style="flex:1">
+        <strong>${escapeHtml(v.reg)}</strong> — ${escapeHtml(v.fleetNumber)}
+        <div class="muted">${escapeHtml(v.type)}</div>
+      </div>
+      <button data-index="${i}" class="remove">Remove</button>
+    `;
+
+    container.appendChild(row);
+  });
+
+  container.querySelectorAll('.remove').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const i = Number(e.target.dataset.index);
+      if (confirm(`Remove vehicle ${data[i].reg}?`)) {
+        data.splice(i, 1);
+        renderAdminFleet(container, data);
+      }
     });
+  });
 }
 
 // ------------------------------------------------------------
-// Admin Functions
+// Export Fleet JSON
 // ------------------------------------------------------------
 
-function showAdminPanel() {
-    document.getElementById("login-box").style.display = "none";
-    document.getElementById("admin-panel").style.display = "block";
+function exportFleetJSON() {
+  const blob = new Blob([JSON.stringify(fleetData, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'fleet.json';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
 }
 
-async function handleLogin() {
-    const inputPassword = document.getElementById("admin-password").value;
-    const hash = await sha256(inputPassword);
-    if (hash === ADMIN_PASSWORD_HASH) {
-        showAdminPanel();
+// ------------------------------------------------------------
+// Login
+// ------------------------------------------------------------
+
+async function checkCredentials(username, password) {
+  if (username !== USERNAME) return false;
+  return (await sha256(password)) === PASSWORD_HASH;
+}
+
+async function initAdminPage() {
+  const loginSection = document.getElementById('loginSection');
+  const adminSection = document.getElementById('adminSection');
+  const loginBtn = document.getElementById('loginBtn');
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+
+  const adminFleetContainer = document.getElementById('adminFleet');
+  const addForm = document.getElementById('addForm');
+  const exportBtn = document.getElementById('exportBtn');
+
+  loginSection.style.display = 'block';
+  adminSection.style.display = 'none';
+
+  loginBtn.addEventListener('click', async () => {
+    const ok = await checkCredentials(usernameInput.value, passwordInput.value);
+    if (ok) {
+      sessionStorage.setItem('fleetLoggedIn', '1');
+      loginSection.style.display = 'none';
+      adminSection.style.display = 'block';
+      renderAdminFleet(adminFleetContainer, fleetData);
     } else {
-        alert("Incorrect password.");
+      alert('Wrong username or password.');
     }
-}
+  });
 
-function renderAdminFleetList() {
-    const adminTable = document.getElementById("admin-table-body");
-    if (!adminTable) return;
+  if (sessionStorage.getItem('fleetLoggedIn')) {
+    loginSection.style.display = 'none';
+    adminSection.style.display = 'block';
+    renderAdminFleet(adminFleetContainer, fleetData);
+  }
 
-    adminTable.innerHTML = "";
-    fleetData.forEach((vehicle, index) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${vehicle.reg}</td>
-            <td>${vehicle.fleetNumber}</td>
-            <td>${vehicle.vehicleType}</td>
-            <td><button onclick="removeVehicle(${index})">Remove</button></td>
-        `;
-        adminTable.appendChild(row);
-    });
-}
+  addForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(addForm);
+    const newV = {
+      reg: fd.get('reg'),
+      fleetNumber: fd.get('fleetNumber'),
+      livery: fd.get('livery'),
+      liveryImage: fd.get('liveryImage'),
+      type: fd.get('type'),
+      features: fd.get('features') ? fd.get('features').split(',').map(s => s.trim()).filter(Boolean) : [],
+      flickr: fd.get('flickr')
+    };
+    fleetData.push(newV);
+    renderAdminFleet(adminFleetContainer, fleetData);
+    addForm.reset();
+  });
 
-function addVehicle() {
-    const reg = document.getElementById("new-reg").value.trim();
-    const fleetNumber = document.getElementById("new-fleet-number").value.trim();
-    const liveryImage = document.getElementById("new-livery-image").value.trim();
-    const vehicleType = document.getElementById("new-vehicle-type").value.trim();
-    const features = document.getElementById("new-features").value.trim();
-    const flickrURL = document.getElementById("new-flickr-url").value.trim();
+  exportBtn.addEventListener('click', exportFleetJSON);
 
-    if (!reg || !fleetNumber) {
-        alert("Registration number and fleet number are required.");
-        return;
-    }
-
-    fleetData.push({ reg, fleetNumber, liveryImage, vehicleType, features, flickrURL });
-    renderFleetList();
-    renderAdminFleetList();
-    saveFleetData();
-}
-
-function removeVehicle(index) {
-    fleetData.splice(index, 1);
-    renderFleetList();
-    renderAdminFleetList();
-    saveFleetData();
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    sessionStorage.removeItem('fleetLoggedIn');
+    location.reload();
+  });
 }
 
 // ------------------------------------------------------------
-// Init
+// Initialize
 // ------------------------------------------------------------
 
-document.addEventListener("DOMContentLoaded", loadFleetData);
+window.addEventListener('DOMContentLoaded', async () => {
+  await loadFleet();
+  const fleetContainer = document.getElementById('fleet');
+  if (fleetContainer) renderFleetTable(fleetContainer, fleetData);
 
-const loginBtn = document.getElementById("login-btn");
-if (loginBtn) loginBtn.addEventListener("click", handleLogin);
-
-const addBtn = document.getElementById("add-btn");
-if (addBtn) addBtn.addEventListener("click", addVehicle);
+  if (document.getElementById('adminSection')) {
+    initAdminPage();
+  }
+});
