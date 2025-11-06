@@ -5,42 +5,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Bus Adventures Diary</title>
 <link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
 <main class="container">
 <header>
 <h1>Bus Adventures Diary</h1>
-<p>Log your day-to-day bus journeys.</p>
+<p>Log your rides, attach photos, and map your journeys.</p>
 </header>
 
 
-<section id="new-entry">
+<section id="entry-form">
 <h2>New Entry</h2>
-<form id="entryForm">
-<label>Date
-<input type="date" name="date" required />
+<form id="diaryForm">
+<label>Date<input type="date" name="date" required></label>
+<label>Route / Operator<input type="text" name="route" required></label>
+<label>Bus Model / Fleet No.<input type="text" name="fleet"></label>
+<label>Notes<textarea name="notes"></textarea></label>
+<label>Photo<input type="file" name="photo" accept="image/*"></label>
+<label>Location (optional):
+<input type="number" step="any" name="lat" placeholder="Latitude">
+<input type="number" step="any" name="lng" placeholder="Longitude">
 </label>
-<label>Bus Route / Operator
-<input type="text" name="route" placeholder="e.g., Route 12 - CityBus" required />
-</label>
-<label>Start and End Location
-<input type="text" name="locations" placeholder="e.g., Station → Riverside" />
-</label>
-<label>Notes
-<textarea name="notes" placeholder="Anything interesting?"></textarea>
-</label>
-<button type="submit">Add Entry</button>
+<button type="submit">Save Entry</button>
 </form>
 </section>
 
 
 <section id="entries">
-<h2>Past Adventures</h2>
-<div id="log"></div>
+<h2>Logged Adventures</h2>
+<div id="logList"></div>
+</section>
+
+
+<section id="map-section">
+<h2>Journey Map</h2>
+<div id="map"></div>
+</section>
+
+
+<section>
+<button id="downloadPdf">Download Logbook PDF</button>
 </section>
 </main>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

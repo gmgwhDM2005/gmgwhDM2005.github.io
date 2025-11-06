@@ -1,10 +1,10 @@
-:root { --bg:#f5f7fb; --card:#fff; --accent:#0b4ea2; }
-body { font-family: system-ui, sans-serif; background: var(--bg); margin:0; }
-.container { max-width: 800px; margin: 30px auto; padding: 16px; }
-h1 { margin: 0 0 6px; }
-form label { display:block; margin:10px 0; }
-input, textarea { width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; }
-button { background: var(--accent); color:#fff; padding:8px 14px; border:0; border-radius:6px; cursor:pointer; }
-#log { margin-top:16px; display:grid; gap:12px; }
-.entry { background:var(--card); padding:12px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
-.entry h3 { margin:0 0 6px; }
+body { background: #f2f4f7; font-family: system-ui; margin: 0; color: #111; }
+.container { max-width: 900px; margin: auto; padding: 20px; }
+header h1 { margin-bottom: 5px; }
+#entry-form, #entries, #map-section { background: #fff; padding: 16px; border-radius: 10px; margin-top: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.06); }
+label { display: block; margin: 10px 0; }
+input, textarea { width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; }
+button { padding: 10px 14px; border-radius: 8px; border: none; background: #0a4fa3; color: white; cursor: pointer; }
+.entry { margin-top: 16px; padding: 10px; background: #fafafa; border-radius: 8px; border: 1px solid #ddd; }
+.entry img { max-width: 100%; border-radius: 8px; margin-top: 8px; }
+#map { height: 350px; margin-top: 12px; border-radius: 8px; }
