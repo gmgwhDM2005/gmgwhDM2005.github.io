@@ -1,0 +1,81 @@
+<!doctype html>
+
+
+<button id="exportBtn">Export JSON</button>
+<button id="logoutBtn">Log out</button>
+</section>
+</main>
+
+
+<script src="script.js"></script>
+<script>
+// Admin page behaviour
+window.addEventListener('DOMContentLoaded', async () => {
+const loginBtn = document.getElementById('loginBtn');
+const loginMsg = document.getElementById('loginMsg');
+
+
+const showAdmin = async () => {
+document.getElementById('loginSection').style.display = 'none';
+document.getElementById('adminSection').style.display = '';
+window.fleetData = await window.loadFleet();
+window.renderAdminFleet(document.getElementById('adminFleet'), window.fleetData);
+
+
+// add handler
+document.getElementById('addForm').addEventListener('submit', e => {
+e.preventDefault();
+const fd = new FormData(e.target);
+const newV = {
+reg: fd.get('reg'),
+fleetNumber: fd.get('fleetNumber'),
+livery: fd.get('livery'),
+liveryImage: fd.get('liveryImage'),
+type: fd.get('type'),
+features: fd.get('features') ? fd.get('features').split(',').map(s=>s.trim()).filter(Boolean) : [],
+flickr: fd.get('flickr')
+};
+window.fleetData.push(newV);
+window.renderAdminFleet(document.getElementById('adminFleet'), window.fleetData);
+e.target.reset();
+});
+
+
+document.getElementById('exportBtn').addEventListener('click', () => {
+const blob = new Blob([JSON.stringify(window.fleetData, null, 2)], {type: 'application/json'});
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url; a.download = 'fleet.json';
+document.body.appendChild(a); a.click(); a.remove();
+URL.revokeObjectURL(url);
+});
+
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+sessionStorage.removeItem('fleetLoggedIn');
+location.reload();
+});
+};
+
+
+// simple login
+loginBtn.addEventListener('click', async () => {
+const username = document.getElementById('username').value;
+const password = document.getElementById('password').value;
+const ok = await window.checkCredentials(username, password);
+if (ok) {
+sessionStorage.setItem('fleetLoggedIn', '1');
+showAdmin();
+} else {
+loginMsg.textContent = 'Wrong username or password.';
+}
+});
+
+
+if (sessionStorage.getItem('fleetLoggedIn')) {
+showAdmin();
+}
+});
+</script>
+</body>
+</html>
