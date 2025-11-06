@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bus Fleets</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="container">
+<header>
+<h1>Bus Fleets</h1>
+<p class="lead">Community-maintained list of bus fleets. Add entries via the form below.</p>
+</header>
+
+
+<section id="controls">
+<div class="setup-note">Replace <code>REPO_OWNER</code> and <code>REPO_NAME</code> in <code>script.js</code> for public submission to work.</div>
+<div class="flex">
+<input id="search" placeholder="Search fleet or operator..." />
+<button id="refresh">Refresh</button>
+</div>
+</section>
+
+
+<section id="list">
+<h2>Fleets</h2>
+<div id="fleets"></div>
+</section>
+
+
+<section id="add">
+<h2>Suggest a fleet</h2>
+<form id="addForm">
+<label>Operator name<input name="operator" required /></label>
+<label>Fleet name<input name="fleetName" required /></label>
+<label>Number of vehicles<input name="count" type="number" min="0" /></label>
+<label>Notes<textarea name="notes"></textarea></label>
+<div class="actions">
+<button type="submit">Preview (local)</button>
+<button type="button" id="submitIssue">Submit as GitHub Issue</button>
+<button type="button" id="createPr">Create PR (add JSON file)</button>
+</div>
+</form>
+</section>
+
+
+<footer>
+<small>Hosted on GitHub Pages — contributions via Issue or PR. See README in repo for instructions.</small>
+</footer>
+</main>
+
+
+<script src="script.js"></script>
+</body>
+</html>

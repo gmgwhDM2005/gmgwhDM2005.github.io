@@ -1,0 +1,14 @@
+[
+{
+"operator": "City Transport Ltd",
+"fleetName": "City Buses",
+"count": 24,
+"notes": "Mostly diesel coaches, ordered 5 electric in 2025"
+},
+{
+"operator": "Regional Lines",
+"fleetName": "Regional 1",
+"count": 12,
+"notes": "Mix of double-deck and single-deck"
+}
+]
