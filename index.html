@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VentaBus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+      body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      }
+
+
+      nav {
+      background: #144f82;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      }
+
+
+      nav a {
+      color: white;
+      padding: 1rem 1.5rem;
+      text-decoration: none;
+      display: block;
+      font-size: 1rem;
+      }
+
+
+      nav a.active, nav a:hover {
+      background: #0d3557;
+      }
+
+
+      .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      }
+
+
+      .tab {
+      display: none;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      }
+
+
+      .tab.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+      }
+
+
+      .card {
+      background: white;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      }
+
+
+      button.primary {
+      background-color: #1e73be;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      }
+
+
+      button.primary:hover {
+      background-color: #155a96;
+      }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>VentaBus Travel Co.</h1>
+    <p>Safe. Swift. Reliable</p>
+  </header>
+
+  <nav style="background:#0d3557;">
+    <a href="#" id="tab-westfield" onclick="showTab('westfield')">Westfield</a>
+    <a href="#" id="tab-sunbury" onclick="showTab('sunbury')">Sunbury</a>
+    <a href="#" id="tab-meadstone" onclick="showTab('meadstone')">Meadstone</a>
+  </nav>
+
+  <div class="container">
+    <div id="westfield" class="tab">
+      <div class="card"><h2>Westfield Depot</h2><p>Routes, network information, ticketing and maps for the Westfield service area.</p></div>
+      <div class="card"><h3>Routes</h3><p>List Westfield routes here.</p></div>
+      <div class="card"><h3>Network</h3><p>Describe the Westfield bus network coverage.</p></div>
+      <div class="card"><h3>Tickets</h3><p>Ticketing options for Westfield services.</p></div>
+      <div class="card"><h3>Maps</h3><p>Insert Westfield route maps.</p></div>
+    </div>
+
+    <div id="sunbury" class="tab">
+      <div class="card"><h2>Sunbury Depot</h2><p>Routes, network information, ticketing and maps for Sunbury services.</p></div>
+      <div class="card"><h3>Routes</h3><p>List Sunbury routes here.</p></div>
+      <div class="card"><h3>Network</h3><p>Describe the Sunbury network.</p></div>
+      <div class="card"><h3>Tickets</h3><p>Ticket details for Sunbury.</p></div>
+      <div class="card"><h3>Maps</h3><p>Insert Sunbury route maps.</p></div>
+    </div>
+
+    <div id="meadstone" class="tab">
+      <div class="card"><h2>Meadstone Depot</h2><p>Routes, network information, ticketing and maps for the Meadstone area.</p></div>
+      <div class="card"><h3>Routes</h3><p>List Meadstone routes here.</p></div>
+      <div class="card"><h3>Network</h3><p>Describe the Meadstone bus network.</p></div>
+      <div class="card"><h3>Tickets</h3><p>Ticket options for Meadstone services.</p></div>
+      <div class="card"><h3>Maps</h3><p>Insert Meadstone maps.</p></div>
+    </div>
+
+  </div>
+
+  <script>
+    function showTab(tabName) {
+      const tabs = document.querySelectorAll('.tab');
+      const links = document.querySelectorAll('nav a');
+
+      // Hide all tabs
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+        tab.style.display = 'none';
+      });
+
+      // Remove active state from all nav links
+      links.forEach(link => link.classList.remove('active'));
+
+      // Show selected tab
+      const activeTab = document.getElementById(tabName);
+      if (activeTab) {
+        activeTab.style.display = 'block';
+        void activeTab.offsetWidth; // enables transition
+        activeTab.classList.add('active');
+      }
+
+      // Highlight correct link
+      const activeLink = document.getElementById('tab-' + tabName);
+      if (activeLink) {
+        activeLink.classList.add('active');
+      }
+    }
+  </script>
+
+</body>
+</html>
