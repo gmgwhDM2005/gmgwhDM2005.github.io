@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Blogs | BusBlog UK</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    background:#111;
+    color:#fff;
+    font-family:Poppins,sans-serif;
+    margin:0;
+}
+
+header{
+    background:#181818;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:700;
+    color:#32d26b;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+}
+
+nav a:hover{
+    color:#32d26b;
+}
+
+.hero{
+    padding:80px 8%;
+    text-align:center;
+    background:#161616;
+}
+
+.hero h1{
+    font-size:52px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    color:#bdbdbd;
+    max-width:700px;
+    margin:auto;
+}
+
+.search{
+    padding:40px 8%;
+    text-align:center;
+}
+
+.search input{
+    width:100%;
+    max-width:700px;
+    padding:18px;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+}
+
+.filters{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-bottom:50px;
+}
+
+.filter{
+    background:#222;
+    border:none;
+    color:white;
+    padding:12px 20px;
+    border-radius:50px;
+    cursor:pointer;
+}
+
+.filter.active,
+.filter:hover{
+    background:#32d26b;
+}
+
+.featured{
+    width:84%;
+    margin:auto;
+    background:#1d1d1d;
+    border-radius:12px;
+    overflow:hidden;
+    margin-bottom:60px;
+}
+
+.featured img{
+    width:100%;
+    height:420px;
+    object-fit:cover;
+}
+
+.featured-content{
+    padding:35px;
+}
+
+.badge{
+    display:inline-block;
+    background:#32d26b;
+    color:#000;
+    padding:6px 12px;
+    border-radius:50px;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.grid{
+    width:84%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+    padding-bottom:80px;
+}
+
+.article{
+    background:#1b1b1b;
+    border-radius:10px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.article:hover{
+    transform:translateY(-8px);
+}
+
+.article img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.article-content{
+    padding:25px;
+}
+
+.meta{
+    color:#999;
+    font-size:14px;
+    margin:12px 0;
+}
+
+.article h3{
+    margin:10px 0;
+}
+
+.article p{
+    color:#ccc;
+}
+
+.read{
+    display:inline-block;
+    margin-top:20px;
+    color:#32d26b;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.noResults{
+    display:none;
+    text-align:center;
+    font-size:22px;
+    color:#999;
+    margin-bottom:60px;
+}
+
+.pagination{
+    text-align:center;
+    padding-bottom:70px;
+}
+
+.pagination button{
+    padding:12px 18px;
+    margin:5px;
+    background:#222;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+.pagination button:hover{
+    background:#32d26b;
+}
+
+footer{
+    background:#161616;
+    text-align:center;
+    padding:30px;
+    color:#888;
+}
+
+@media(max-width:800px){
+
+header{
+flex-direction:column;
+}
+
+nav{
+margin-top:20px;
+}
+
+.hero h1{
+font-size:38px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">🚌 BusBlog UK</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="blogs.html">Blogs</a>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>Latest Articles</h1>
+
+<p>
+
+Discover the latest bus industry news, fleet updates,
+vehicle reviews and transport photography.
+
+</p>
+
+</section>
+
+<section class="search">
+
+<input
+id="search"
+type="text"
+placeholder="🔍 Search articles...">
+
+</section>
+
+<div class="filters">
+
+<button class="filter active" data-filter="all">All</button>
+<button class="filter" data-filter="news">News</button>
+<button class="filter" data-filter="fleet">Fleet</button>
+<button class="filter" data-filter="review">Reviews</button>
+<button class="filter" data-filter="operators">Operators</button>
+
+</div>
+
+<section class="featured">
+
+<img src="images/hero.jpg">
+
+<div class="featured-content">
+
+<span class="badge">Featured</span>
+
+<h2>Electric Buses are Transforming Public Transport</h2>
+
+<div class="meta">
+
+15 July 2026 • James Walker • 5 min read
+
+</div>
+
+<p>
+
+Electric fleets continue to expand across the UK as
+operators invest in cleaner and quieter public transport.
+
+</p>
+
+<a href="articles/electric-buses.html" class="read">
+
+Read Article →
+
+</a>
+
+</div>
+
+</section>
+
+<div class="noResults">
+
+No articles matched your search.
+
+</div>
+
+<section class="grid">
+
+<div class="article" data-category="news">
+
+<img src="images/post1.jpg">
+
+<div class="article-content">
+
+<div class="meta">
+
+News • 12 July 2026
+
+</div>
+
+<h3>FirstGroup Orders 50 New Electric Buses</h3>
+
+<p>
+
+A major investment in zero-emission transport.
+
+</p>
+
+<a href="#" class="read">
+
+Read More →
+
+</a>
+
+</div>
+
+</div>
+
+<div class="article" data-category="fleet">
+
+<img src="images/post2.jpg">
+
+<div class="article-content">
+
+<div class="meta">
+
+Fleet • 10 July 2026
+
+</div>
+
+<h3>Fleet Review: Enviro400MMC</h3>
+
+<p>
+
+Our detailed review of one of Britain's most popular buses.
+
+</p>
+
+<a href="#" class="read">
+
+Read More →
+
+</a>
+
+</div>
+
+</div>
+
+<div class="article" data-category="review">
+
+<img src="images/post3.jpg">
+
+<div class="article-content">
+
+<div class="meta">
+
+Review • 9 July 2026
+
+</div>
+
+<h3>The UK's Most Scenic Bus Routes</h3>
+
+<p>
+
+Our favourite countryside journeys.
+
+</p>
+
+<a href="#" class="read">
+
+Read More →
+
+</a>
+
+</div>
+
+</div>
+
+<div class="article" data-category="operators">
+
+<img src="images/post4.jpg">
+
+<div class="article-content">
+
+<div class="meta">
+
+Operators • 8 July 2026
+
+</div>
+
+<h3>Independent Operators Continue to Grow</h3>
+
+<p>
+
+Smaller operators are investing in new fleets and routes.
+
+</p>
+
+<a href="#" class="read">
+
+Read More →
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="pagination">
+
+<button>« Previous</button>
+
+<button>1</button>
+<button>2</button>
+<button>3</button>
+
+<button>Next »</button>
+
+</div>
+
+<footer>
+
+© 2026 BusBlog UK
+
+</footer>
+
+<script>
+
+const search=document.getElementById("search");
+const articles=document.querySelectorAll(".article");
+const noResults=document.querySelector(".noResults");
+
+function update(){
+
+let visible=0;
+
+const term=search.value.toLowerCase();
+
+const active=document.querySelector(".filter.active").dataset.filter;
+
+articles.forEach(article=>{
+
+const text=article.innerText.toLowerCase();
+
+const category=article.dataset.category;
+
+const matchSearch=text.includes(term);
+
+const matchCategory=active==="all"||category===active;
+
+if(matchSearch&&matchCategory){
+
+article.style.display="block";
+visible++;
+
+}else{
+
+article.style.display="none";
+
+}
+
+});
+
+noResults.style.display=visible===0?"block":"none";
+
+}
+
+search.addEventListener("input",update);
+
+document.querySelectorAll(".filter").forEach(button=>{
+
+button.onclick=()=>{
+
+document.querySelector(".active").classList.remove("active");
+
+button.classList.add("active");
+
+update();
+
+};
+
+});
+
+</script>
+
+</body>
+</html>
