@@ -1,4 +1,4 @@
-const search = document.getElementById("search");
+/*const search = document.getElementById("search");
 
 search.addEventListener("keyup", function () {
 
@@ -13,13 +13,13 @@ post.style.display = text.includes(value) ? "block" : "none";
 });
 
 });
-
+*/
 
 document.getElementById("navigbar").innerHTML = `
 <header>
 
 <div>
-    <a href="https://gmgwhDM2005.github.io/" class="logo" style="text-decoration: none;">gmg's Transport Blogs</a>
+    <a href="https://gmgwhDM2005.github.io/" class="logo" style="">gmg's Transport Blogs</a>
 </div>
 
 <nav>
@@ -30,4 +30,16 @@ document.getElementById("navigbar").innerHTML = `
 </nav>
 
 </header>
+`
+
+document.getElementById("footer").innerHTML = `
+<footer>
+
+<p>© 2026 gmgwhDM2005</p>
+
+<p>
+<a class="footerStyle" href="https://www.x.com/gmgwhDM2005">X</a> • <a class="footerStyle" href="https://www.flickr.com/gmgwhDM2005">Flickr</a>
+</p>
+
+</footer>
 `
