@@ -1,20 +1,3 @@
-/*const search = document.getElementById("search");
-
-search.addEventListener("keyup", function () {
-
-const value = this.value.toLowerCase();
-
-document.querySelectorAll(".post").forEach(post => {
-
-const text = post.innerText.toLowerCase();
-
-post.style.display = text.includes(value) ? "block" : "none";
-
-});
-
-});
-*/
-
 document.getElementById("navigbar").innerHTML = `
 <header>
 
@@ -25,7 +8,7 @@ document.getElementById("navigbar").innerHTML = `
 <nav>
 
     <a href="https://gmgwhDM2005.github.io/">Home</a>
-    <a href="https://gmgwhDM2005.github.io/blogs">Blogs</a>
+    <a href="https://gmgwhDM2005.github.io/articles">Articles</a>
 
 </nav>
 

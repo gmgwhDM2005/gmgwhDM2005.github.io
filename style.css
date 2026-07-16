@@ -47,7 +47,7 @@ nav a:hover{
 
 .hero{
     height:70vh;
-    background:url(images/hero.jpg) center/cover;
+    background:url(images/Hero.jpg) center/cover;
     display:flex;
     align-items:center;
     padding:8%;
@@ -101,11 +101,12 @@ text-align:center;
     transition:.3s;
     padding:0;
     line-height:1.8;
+    margin:auto
 }
 
 .article img{
-    width:100%;
-    height:220px;
+    width:250px;
+    height:250px;
     object-fit:cover;
     display:block;
 }
@@ -114,10 +115,97 @@ text-align:center;
     transform:translateY(-8px)
 }
 
-.article-content{
-    padding:25px;
+/* Article Container */
+
+.article-page {
+    max-width: 90%;
+    margin: 50px auto;
+    background: #1c1c1c;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
 
+
+/* Article Content */
+
+.article-content {
+    background: #373737;
+    padding: 40px;
+    color: white;
+}
+
+/* Article Image */
+
+.article-content .titleimg {
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    margin: auto;
+    border-radius: 12px;
+    margin-bottom: 35px;
+}
+
+/* Title */
+
+.article-content h1 {
+    font-size: 42px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+/* Paragraph Text */
+
+.article-content p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #dddddd;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+
+
+/* First Paragraph Highlight */
+
+.article-content p:first-of-type {
+    font-size: 19px;
+    color: #ffffff;
+}
+
+
+
+/* Mobile Responsive */
+
+@media(max-width:700px){
+
+    .article-page {
+        margin: 20px;
+    }
+
+
+    .article-content {
+        padding: 25px;
+    }
+
+
+    .article-content img {
+        height: 250px;
+    }
+
+
+    .article-content h1 {
+        font-size: 30px;
+    }
+
+
+    .article-content h2 {
+        font-size: 23px;
+    }
+
+}
 
 .filters{
     display:flex;
@@ -279,4 +367,10 @@ flex-direction:column;
 width:100%;
 
 }
+}
+
+footer {
+    text-align:center;
+    padding:30px;
+    background:#0a0a0a;
 }

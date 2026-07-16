@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="refresh" content="500">
+    <title>Articles | gmg's Transport Blogs</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="navigbar"></div>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Latest Articles</h1>
+            <p>Browse the latest bus news, fleet updates, operator announcements and reviews from across the UK.</p>
+        </div>
+    </section>
+
+    <section class="search">
+        <input id="search" type="text" placeholder="🔍 Search articles...">
+    </section>
+
+    <div class="filters">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="blogs">Blogs</button>
+        <button class="filter" data-filter="news">News</button>
+        <button class="filter" data-filter="review">Reviews</button>
+    </div>
+
+    <div class="noResults">
+        No articles matched your search.
+    </div>
+
+    <section class="grid">
+        <div class="article" data-category="news">
+            <img src="images/MiddletonBZL.jpg">
+            <div class="article-content">
+                <h3>Middleton becomes electric</h3>
+                <p>
+                    Bee Network invests into over 50 new BZLs for Middleton
+                </p>
+                <a href="articles/middleton-becomes-electric.html" class="read"> Read More → </a>
+            </div>
+        </div>        
+    </section>
+
+    <div class="pagination">
+        <button>« Previous</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>Next »</button>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="script.js"></script>
+<script>
+
+const search=document.getElementById("search");
+const articles=document.querySelectorAll(".article");
+const noResults=document.querySelector(".noResults");
+
+function update(){
+
+let visible=0;
+
+const term=search.value.toLowerCase();
+
+const active=document.querySelector(".filter.active").dataset.filter;
+
+articles.forEach(article=>{
+
+const text=article.innerText.toLowerCase();
+
+const category=article.dataset.category;
+
+const matchSearch=text.includes(term);
+
+const matchCategory=active==="all"||category===active;
+
+if(matchSearch&&matchCategory){
+
+article.style.display="block";
+visible++;
+
+}else{
+
+article.style.display="none";
+
+}
+
+});
+
+noResults.style.display=visible===0?"block":"none";
+
+}
+
+search.addEventListener("input",update);
+
+document.querySelectorAll(".filter").forEach(button=>{
+
+button.onclick=()=>{
+
+document.querySelector(".active").classList.remove("active");
+
+button.classList.add("active");
+
+update();
+
+};
+
+});
+
+</script>
+
+</body>
+</html>
